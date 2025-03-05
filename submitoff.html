@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sathi - ₹3 Document Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdfdfd;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.1);
+            animation: float 6s infinite linear, fadeInOut 6s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+        .title {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 60px;
+            font-weight: bold;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+        .dark-toggle {
+            cursor: pointer;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 14px;
+        }
+        .font-btn {
+            cursor: pointer;
+            background: #ccc;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .submit-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .submit-btn:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="header">
+        <div class="title">Student Sathi</div>
+        <div class="controls">
+            <button class="font-btn" onclick="changeFontSize(1)">A+</button>
+            <button class="font-btn" onclick="changeFontSize(-1)">A-</button>
+            <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h3>Submit Your Request</h3>
+        <form id="request-form" action="https://script.google.com/macros/s/AKfycbwttxqWuKWCJCU3BlL9Z5UR4h163RAsoa0Vbrc-__FPSl-7YdWhFDvqGv_wInBBjW3U/exec" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="text" name="contact" placeholder="Contact Number" required>
+            
+            <h4>Course Details</h4>
+            <select name="stream" required>
+                <option value="">Select Stream</option>
+                <option value="Science">Science</option>
+                <option value="Commerce">Commerce</option>
+                <option value="Arts">Arts</option>
+            </select>
+            <input type="text" name="course" placeholder="Course Name" required>
+            <input type="text" name="subject" placeholder="Subject Name" required>
+            <input type="text" name="subject_code" placeholder="Subject Code" required>
+            <input type="text" name="enrollment" placeholder="Enrollment Number" required>
+            <input type="text" name="period" placeholder="Period of Course" required>
+            
+            <h4>Other Details</h4>
+            <textarea name="description" placeholder="Additional Details"></textarea>
+            <input type="file" name="logo" accept="image/*">
+            
+            <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_Q38UA8wXpVIAa2" async></script>
+            
+            <button type="submit" class="submit-btn" id="submit-btn" disabled>Submit Request</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var submitButton = document.getElementById("submit-btn");
+            var paymentButton = document.querySelector(".razorpay-payment-button");
+            
+            paymentButton.addEventListener("click", function () {
+                setTimeout(function () {
+                    submitButton.disabled = false;
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
